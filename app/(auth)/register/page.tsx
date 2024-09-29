@@ -1,14 +1,14 @@
 "use client";
 
 import Input from "@/components/form/Input";
-import axios from "axios";
-import { getCookie } from "cookies-next";
-import React from "react";
-import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { useGlobalContext } from "@/context";
 import registration from "@/images/Register.svg";
+import axios from "axios";
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 interface RegisterDataProps {
@@ -96,7 +96,7 @@ const Register = () => {
 
       <div
         className="w-full h-full flex flex-col items-center justify-center my-auto max-w-screen-l-l p-4 gap-4 t:p-8 t:gap-8
-                  l-s:flex-row absolute l-s:w-6/12 l-s:right-0 "
+                  absolute l-s:w-6/12 l-s:right-0 "
       >
         <Link
           href="/"
