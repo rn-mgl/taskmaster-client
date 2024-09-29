@@ -3,6 +3,7 @@
 import Input from "@/components/form/Input";
 import { useGlobalContext } from "@/context";
 import registration from "@/images/Register.svg";
+import { getCSRFToken } from "@/src/utils/token";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
@@ -45,9 +46,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const { data: token } = await axios.get(`${url}/csrf_token`, {
-        withCredentials: true,
-      });
+      const token = await getCSRFToken();
 
       if (token.csrf_token) {
         const { data: register } = await axios.post(

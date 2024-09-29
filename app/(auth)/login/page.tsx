@@ -3,6 +3,7 @@
 import Input from "@/components/form/Input";
 import { useGlobalContext } from "@/context";
 import login from "@/images/Login.svg";
+import { getCSRFToken } from "@/src/utils/token";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
@@ -39,9 +40,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { data: token } = await axios.get(`${url}/csrf_token`, {
-        withCredentials: true,
-      });
+      const token = await getCSRFToken();
 
       if (token.csrf_token) {
         const { data: login } = await axios.post(
@@ -52,6 +51,8 @@ const Login = () => {
             withCredentials: true,
           }
         );
+
+        console.log(login);
       }
     } catch (error) {
       console.log(error);
