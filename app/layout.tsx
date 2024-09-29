@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
-import { Poppins, Nunito } from "next/font/google";
+"use client";
+
+import { Nunito, Poppins } from "next/font/google";
+import { AppProvider } from "../context";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -16,20 +18,18 @@ const nunito = Nunito({
   variable: "--font-body",
 });
 
-export const metadata: Metadata = {
-  title: "TaskMaster",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${nunito.variable} antialiased`}>
-        {children}
-      </body>
-    </html>
+    <AppProvider>
+      <html lang="en">
+        <body className={`${poppins.variable} ${nunito.variable} antialiased`}>
+          {children}
+        </body>
+      </html>
+    </AppProvider>
   );
 }

@@ -40,9 +40,14 @@ const config: Config = {
           "0%": { transform: "translateY(-1rem)" },
           "100%": { transform: "translateY(1rem)" },
         },
+        fade: {
+          "0%": { opacity: "0%", transform: "translateY(-5%)" },
+          "100%": { opacity: "100%", transform: "translateY(0%)" },
+        },
       },
       animation: {
         float: "float 3s ease-in-out alternate infinite",
+        fade: "fade 200ms ease",
       },
     },
   },

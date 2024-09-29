@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  border: none;
-  outline: none;
+a:hover,
+button:hover {
+  box-shadow: 0rem 0.2rem 0.2rem 0.2rem #00000018;
+  transition: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 @layer utilities {

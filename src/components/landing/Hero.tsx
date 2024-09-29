@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="w-full h-full flex flex-col items-center justify-start my-auto max-w-screen-l-l p-4 gap-4 t:p-8 t:gap-8">
         <div className="w-full flex flex-col items-start justify-center text-default-light gap-2 t:items-center l-s:gap-4">
           <p
-            className="font-black font-header text-4xl l-s:text-6xl bg-gradient-to-br from-secondary-light to-accent-light p-3
+            className="font-black font-header text-4xl l-s:text-6xl bg-gradient-to-r from-secondary-main via-accent-light to-secondary-main p-3
                       bg-clip-text text-transparent t:bg-gradient-to-r drop-shadow-md"
           >
             Organize. <br className="t:hidden" /> Track.{" "}
