@@ -41,7 +41,7 @@ const Register = () => {
     });
   };
 
-  const register = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -105,7 +105,7 @@ const Register = () => {
           <FaArrowLeftLong />
         </Link>
         <form
-          onSubmit={(e) => register(e)}
+          onSubmit={(e) => submitRegister(e)}
           className="flex flex-col items-start justify-center w-full h-full gap-2 font-body
                     rounded-lg backdrop-blur-md border-primary-main text-default-black max-w-screen-m-l"
         >

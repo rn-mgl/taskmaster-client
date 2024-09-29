@@ -1,7 +1,10 @@
 "use client";
 
 import Input from "@/components/form/Input";
+import { useGlobalContext } from "@/context";
 import login from "@/images/Login.svg";
+import axios from "axios";
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,6 +22,8 @@ const Login = () => {
     password: "",
   });
 
+  const { url } = useGlobalContext();
+
   const handleLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -28,6 +33,29 @@ const Login = () => {
         [name]: value,
       };
     });
+  };
+
+  const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const { data: token } = await axios.get(`${url}/csrf_token`, {
+        withCredentials: true,
+      });
+
+      if (token.csrf_token) {
+        const { data: login } = await axios.post(
+          `${url}/login`,
+          { ...loginData },
+          {
+            headers: { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") },
+            withCredentials: true,
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -61,7 +89,7 @@ const Login = () => {
         </Link>
 
         <form
-          onSubmit={(e) => register(e)}
+          onSubmit={(e) => submitLogin(e)}
           className="flex flex-col items-start justify-center w-full h-full gap-2 font-body
                     rounded-lg backdrop-blur-md border-secondary-main text-default-black max-w-screen-m-l"
         >
