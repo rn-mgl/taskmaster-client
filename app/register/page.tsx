@@ -8,6 +8,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -30,6 +31,8 @@ const Register = () => {
   });
 
   const { url } = useGlobalContext();
+
+  const router = useRouter();
 
   const handleRegisterData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,7 +62,7 @@ const Register = () => {
         );
 
         if (register.success) {
-          console.log("Registered");
+          router.push("/sending?type=verification");
         }
       }
     } catch (error) {
