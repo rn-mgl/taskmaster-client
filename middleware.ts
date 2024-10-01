@@ -1,10 +1,18 @@
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
 import axios from "axios";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  const user = request.cookies.get("tm");
+
+  if (!user || !user.value) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   try {
-    const { data } = await axios.get(`${process.env.BACKEND_URL}/check_auth`);
+    const { data } = await axios.get(`${process.env.BACKEND_URL}/check_auth`, {
+      withCredentials: true,
+      headers: { Authorization: `Bearer ${user.value}` },
+    });
 
     if (!data.authenticated) {
       return NextResponse.redirect(new URL("/login", request.url));
@@ -15,5 +23,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/taskmaster/:path*"],
+  matcher: ["/tm/:path*"],
 };

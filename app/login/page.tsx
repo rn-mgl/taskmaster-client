@@ -5,9 +5,10 @@ import { useGlobalContext } from "@/context";
 import login from "@/images/Login.svg";
 import { getCSRFToken } from "@/src/utils/token";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { CiLock, CiUser } from "react-icons/ci";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -24,6 +25,8 @@ const Login = () => {
   });
 
   const { url } = useGlobalContext();
+
+  const router = useRouter();
 
   const handleLoginData = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,7 +46,7 @@ const Login = () => {
       const token = await getCSRFToken();
 
       if (token.csrf_token) {
-        const { data: login } = await axios.post(
+        const { data: attempt } = await axios.post(
           `${url}/login`,
           { ...loginData },
           {
@@ -52,7 +55,10 @@ const Login = () => {
           }
         );
 
-        console.log(login);
+        if (attempt.success) {
+          setCookie("tm", attempt.token, { sameSite: "lax" });
+          router.push("/tm");
+        }
       }
     } catch (error) {
       console.log(error);
