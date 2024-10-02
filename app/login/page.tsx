@@ -56,8 +56,12 @@ const Login = () => {
         );
 
         if (attempt.success) {
-          setCookie("tm", attempt.token, { sameSite: "lax" });
-          router.push("/tm");
+          if (attempt.isVerified) {
+            setCookie("tm", attempt.token, { sameSite: "lax" });
+            router.push("/tm");
+          } else {
+            router.push("/sending?type=verification");
+          }
         }
       }
     } catch (error) {
