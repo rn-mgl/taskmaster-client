@@ -1,3 +1,4 @@
+import Nav from "@/components/global/Nav";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <>{children}</>;
+  return (
+    <div className="fixed top-0 left-0 w-full h-full">
+      <Nav>{children}</Nav>
+    </div>
+  );
 }

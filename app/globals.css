@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-a:hover,
 button:hover {
   box-shadow: 0rem 0.2rem 0.2rem 0.2rem #00000018;
   transition: all;
