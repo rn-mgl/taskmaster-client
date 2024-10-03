@@ -9,6 +9,27 @@ button:hover {
   transition-duration: 150ms;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff4081;
+  border-radius: 100rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d81b60;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

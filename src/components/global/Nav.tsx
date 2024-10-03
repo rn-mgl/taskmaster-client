@@ -22,14 +22,14 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <div className="flex flex-row h-full transition-all w-full items-start justify-start">
       <div
         className={`fixed top-0 left-0 w-full h-full z-50 bg-default-light t:w-6/12 flex-col items-start justify-start
-                     l-s:static l-s:z-0 font-header gap-4 transition-all flex ${
+                     l-s:static l-s:z-0 font-header gap-4 transition-all flex l-s:border-r-[1px] ${
                        activeNav
                          ? "translate-x-0 l-s:w-72 l-s:min-w-72 l-s:max-w-72"
                          : "-translate-x-full l-s:translate-x-0 l-s:w-20 l-s:min-w-20 l-s:max-w-20"
                      }`}
       >
         <div
-          className={`text-primary-main border-b-2 w-full p-3 flex flex-row items-center transition-all ${
+          className={`text-primary-main border-b-[1px] w-full p-3 flex flex-row items-center transition-all ${
             activeNav ? "justify-between" : "justify-center"
           }`}
         >
@@ -124,8 +124,8 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         }`}
       />
 
-      <div className="flex flex-col flex-1 gap-4">
-        <div className="text-primary-main border-b-2 w-full p-3 l-s:p-4 flex flex-row items-center justify-between">
+      <div className="flex w-full h-full flex-col flex-1 relative pb-4 overflow-hidden">
+        <div className="text-primary-main border-b-[1px] w-full p-3 l-s:p-4 flex flex-row items-center justify-between">
           <div className="t:hidden">
             <Logo link="/tm" />
           </div>
@@ -140,7 +140,9 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <div className="w-8 h-8 min-w-8 min-h-8 bg-accent-main rounded-full hidden ml-auto l-s:flex"></div>
         </div>
 
-        {children}
+        <div className="w-full h-full flex flex-col overflow-y-auto justify-start">
+          {children}
+        </div>
       </div>
     </div>
   );
