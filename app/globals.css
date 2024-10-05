@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-button:hover {
-  box-shadow: 0rem 0.2rem 0.2rem 0.2rem #00000018;
-  transition: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

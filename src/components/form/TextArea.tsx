@@ -1,25 +1,22 @@
 import React from "react";
 
-interface InputProps {
-  type: string;
+interface TextAreaProps {
   name: string;
   id: string;
   placeholder: string;
   required: boolean;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  Icon?: React.ReactNode;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const Input: React.FC<InputProps> = (props) => {
+const TextArea: React.FC<TextAreaProps> = (props) => {
   return (
     <div className="flex flex-col w-full items-start justify-center relative border-inherit text-inherit">
       <p className="text-xs font-bold text-default-black font-header">
         {props.placeholder}
       </p>
 
-      <input
-        type={props.type}
+      <textarea
         name={props.name}
         id={props.id}
         placeholder={props.placeholder}
@@ -27,17 +24,12 @@ const Input: React.FC<InputProps> = (props) => {
         title={props.placeholder}
         value={props.value}
         onChange={(e) => props.onChange(e)}
+        rows={4}
         className="w-full p-2 focus:pl-4 rounded-md border-default-black/20 border-[1px] outline-none transition-all 
-              duration-100 font-body focus:border-inherit focus:border-2"
+          duration-100 font-body focus:border-inherit focus:border-2 resize-none"
       />
-
-      {props.Icon ? (
-        <div className="absolute p-2 right-1 bottom-0 -translate-y-1 bg-default-white">
-          {props.Icon}
-        </div>
-      ) : null}
     </div>
   );
 };
 
-export default Input;
+export default TextArea;
