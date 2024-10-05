@@ -4,8 +4,12 @@ import { FaImage, FaLightbulb } from "react-icons/fa6";
 import Input from "@/components/form/Input";
 import Select from "@/components/form/Select";
 import TextArea from "@/components/form/TextArea";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoTrash } from "react-icons/io5";
 import DatePicker from "@/components/form/DatePicker";
+import { getCSRFToken } from "@/src/utils/token";
+import axios from "axios";
+import { useGlobalContext } from "@/context";
+import { getCookie } from "cookies-next";
 
 interface CreateProps {
   handleCanCreate: () => void;
@@ -27,6 +31,14 @@ const Create: React.FC<CreateProps> = (props) => {
     banner_image: "",
     status: "On Going",
   });
+  const [selectedFile, setSelectedFile] = React.useState<{
+    raw: File | null;
+    url: string;
+  }>({ raw: null, url: "" });
+
+  const fileRef = React.useRef<HTMLInputElement>(null);
+
+  const { url } = useGlobalContext();
 
   const handleProjectData = (
     e:
@@ -34,8 +46,6 @@ const Create: React.FC<CreateProps> = (props) => {
       | React.MouseEvent<HTMLButtonElement>
   ) => {
     const { name, value } = e.currentTarget;
-
-    console.log(value);
 
     setProjectData((prev) => {
       return {
@@ -48,9 +58,50 @@ const Create: React.FC<CreateProps> = (props) => {
   const submitCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      const token = await getCSRFToken();
+
+      if (token.csrf_token) {
+        const { data: project } = await axios.post(
+          `${url}/create_project`,
+          { ...projectData },
+          {
+            headers: { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") },
+            withCredentials: true,
+          }
+        );
+
+        console.log(project);
+
+        if (project.success) {
+          props.handleCanCreate();
+        }
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+
+    if (!files || !files.length) {
+      return;
+    }
+
+    const file = files[0];
+
+    const url = URL.createObjectURL(file);
+
+    setSelectedFile({ raw: file, url });
+  };
+
+  const handleRemoveSelectedFile = () => {
+    if (fileRef && fileRef.current) {
+      fileRef.current.files = null;
+      fileRef.current.value = "";
+    }
+
+    setSelectedFile({ raw: null, url: "" });
   };
 
   return (
@@ -111,25 +162,45 @@ const Create: React.FC<CreateProps> = (props) => {
             options={["None", "Hold", "On Going", "Done"]}
             onChange={handleProjectData}
           />
+
           <div className="w-full flex flex-col items-start justify-center">
             <p className="text-xs font-bold text-default-black font-header">
               Banner Image
             </p>
-            <div className="w-full rounded-md border-[1px] p-2 max-h-44 t:h-44 aspect-video flex flex-col items-center justify-center text-primary-light">
-              <FaImage className="text-4xl" />
-            </div>
-            <label
-              htmlFor="banner_image"
-              className="ml-auto mt-2 text-primary-main cursor-pointer"
+            <div
+              style={{
+                backgroundImage: selectedFile.url && `url(${selectedFile.url})`,
+              }}
+              className="w-full rounded-md border-[1px] p-2 max-h-44 t:h-44 aspect-video flex flex-col 
+                      items-center justify-center text-primary-light bg-center bg-cover bg-no-repeat"
             >
-              <input
-                id="banner_image"
-                type="file"
-                accept="image/*"
-                className="hidden "
-              ></input>
-              <FaImage />
-            </label>
+              {selectedFile.raw ? null : <FaImage className="text-4xl" />}
+            </div>
+            <div className="flex flex-row w-full gap-2 items-center justify-between ml-auto pt-2">
+              <label
+                htmlFor="banner_image"
+                className="text-primary-main cursor-pointer"
+              >
+                <input
+                  id="banner_image"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={fileRef}
+                  onChange={(e) => handleSelectedFile(e)}
+                ></input>
+                <FaImage />
+              </label>
+              {selectedFile.raw ? (
+                <button
+                  type="button"
+                  onClick={handleRemoveSelectedFile}
+                  className="text-primary-main cursor-pointer"
+                >
+                  <IoTrash />
+                </button>
+              ) : null}
+            </div>
           </div>
 
           <button className="mt-auto p-2 rounded-md bg-primary-main text-default-light w-full font-bold font-header">
