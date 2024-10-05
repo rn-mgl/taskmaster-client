@@ -46,7 +46,7 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
         <div className="w-full h-full flex flex-col items-center justify-start gap-2 text-default-dark p-4 transition-all">
           <Link
-            href="/"
+            href="/tm"
             className={`w-full p-4 rounded-md flex flex-row gap-2 items-center justify-center hover:bg-accent-light/30 hover:text-primary-main transition-all
                       ${
                         path === "/tm"
