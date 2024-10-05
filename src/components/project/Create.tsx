@@ -10,6 +10,7 @@ import { getCSRFToken } from "@/src/utils/token";
 import axios from "axios";
 import { useGlobalContext } from "@/context";
 import { getCookie } from "cookies-next";
+import useFile from "@/src/hooks/useFile";
 
 interface CreateProps {
   handleCanCreate: () => void;
@@ -31,12 +32,12 @@ const Create: React.FC<CreateProps> = (props) => {
     banner_image: "",
     status: "On Going",
   });
-  const [selectedFile, setSelectedFile] = React.useState<{
-    raw: File | null;
-    url: string;
-  }>({ raw: null, url: "" });
-
-  const fileRef = React.useRef<HTMLInputElement>(null);
+  const {
+    selectedFile,
+    fileRef,
+    handleSelectedFile,
+    handleRemoveSelectedFile,
+  } = useFile();
 
   const { url } = useGlobalContext();
 
@@ -70,8 +71,6 @@ const Create: React.FC<CreateProps> = (props) => {
           }
         );
 
-        console.log(project);
-
         if (project.success) {
           props.handleCanCreate();
         }
@@ -79,29 +78,6 @@ const Create: React.FC<CreateProps> = (props) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSelectedFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-
-    if (!files || !files.length) {
-      return;
-    }
-
-    const file = files[0];
-
-    const url = URL.createObjectURL(file);
-
-    setSelectedFile({ raw: file, url });
-  };
-
-  const handleRemoveSelectedFile = () => {
-    if (fileRef && fileRef.current) {
-      fileRef.current.files = null;
-      fileRef.current.value = "";
-    }
-
-    setSelectedFile({ raw: null, url: "" });
   };
 
   return (
