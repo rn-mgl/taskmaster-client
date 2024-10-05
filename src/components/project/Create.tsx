@@ -62,9 +62,36 @@ const Create: React.FC<CreateProps> = (props) => {
       const token = await getCSRFToken();
 
       if (token.csrf_token) {
+        let banner_image = null;
+        if (selectedFile.raw) {
+          const formData = new FormData();
+
+          formData.append("file", selectedFile.raw);
+
+          const { data: file } = await axios.post(
+            `${url}/upload_file`,
+            formData,
+            {
+              headers: {
+                "X-XSRF-TOKEN": getCookie("XSRF-TOKEN"),
+                "Content-Type": "multipart/form-data",
+              },
+              withCredentials: true,
+            }
+          );
+
+          banner_image = file.url ?? null;
+        }
+
         const { data: project } = await axios.post(
           `${url}/create_project`,
-          { ...projectData },
+          {
+            title: projectData.title,
+            description: projectData.description,
+            deadline: projectData.deadline,
+            banner_image: banner_image,
+            status: projectData.status,
+          },
           {
             headers: { "X-XSRF-TOKEN": getCookie("XSRF-TOKEN") },
             withCredentials: true,
