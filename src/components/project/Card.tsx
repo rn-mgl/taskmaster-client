@@ -8,6 +8,12 @@ interface CardProps {
   title: string;
   description: string;
   status: number;
+  user: UserProps;
+}
+
+interface UserProps {
+  first_name: string;
+  last_name: string;
 }
 
 const Card: React.FC<CardProps> = (props) => {
@@ -44,13 +50,16 @@ const Card: React.FC<CardProps> = (props) => {
         <div className="w-full border-[1px] h-[0.2px]"></div>
 
         <div className="w-full flex flex-row items-center justify-start gap-2">
-          <div className="w-8 h-8 min-w-8 min-h-8 rounded-full bg-secondary-light"></div>
+          <div
+            className="w-8 h-8 min-w-8 min-h-8 rounded-full bg-secondary-light"
+            title={`${props.user.first_name} ${props.user.last_name}`}
+          ></div>
         </div>
 
         <Link
           href={`/tm/project/${props.id}`}
-          className="w-full flex flex-col items-center justify-center p-2 rounded-md bg-primary-main text-default-white font-bold font-header
-                    hover:shadow-md transition-all"
+          className="w-full flex flex-col items-center justify-center p-2 rounded-md bg-primary-main 
+                    text-default-white font-bold font-header hover:shadow-md transition-all"
         >
           View
         </Link>

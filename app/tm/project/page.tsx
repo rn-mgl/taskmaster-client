@@ -14,6 +14,12 @@ interface ProjectProps {
   description: string;
   title: string;
   status: number;
+  user: UserProps;
+}
+
+interface UserProps {
+  first_name: string;
+  last_name: string;
 }
 
 const Project = () => {
