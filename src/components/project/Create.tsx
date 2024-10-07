@@ -14,6 +14,7 @@ import useFile from "@/src/hooks/useFile";
 
 interface CreateProps {
   handleCanCreate: () => void;
+  getAllCreated: () => Promise<void>;
 }
 
 interface ProjectDataProps {
@@ -99,6 +100,7 @@ const Create: React.FC<CreateProps> = (props) => {
         );
 
         if (project.success) {
+          props.getAllCreated();
           props.handleCanCreate();
         }
       }
@@ -112,7 +114,7 @@ const Create: React.FC<CreateProps> = (props) => {
       className="top-0 left-0 w-full h-full fixed flex flex-col items-center justify-center
          bg-default-black/20 z-50 p-4 t:p-8 animate-fade"
     >
-      <div className="max-w-screen-t rounded-lg bg-default-white w-full h-full shadow-md flex flex-col items-center justify-start">
+      <div className="max-w-screen-t rounded-lg bg-default-white w-full h-fit shadow-md flex flex-col items-center justify-start">
         <div className="w-full p-2 border-b-[1px] font-header font-bold text-primary-main flex flex-row items-center justify-between">
           <div className="flex flex-row items-center justify-center gap-2">
             <FaLightbulb className="text-accent-main" />
