@@ -18,8 +18,9 @@ interface UserProps {
 
 const Card: React.FC<CardProps> = (props) => {
   return (
-    <div
-      className="w-full flex flex-col items-start justify-start rounded-lg hover:shadow-md min-h-[28rem] max-h-[30rem] h-fit
+    <Link
+      href={`/tm/project/${props.id}`}
+      className="w-full flex flex-col items-start justify-start rounded-lg hover:shadow-md h-fit
                     transition-all gap-2 bg-default-light animate-fade border-[1px] group overflow-hidden"
     >
       <div
@@ -43,7 +44,7 @@ const Card: React.FC<CardProps> = (props) => {
           </p>
         </div>
 
-        <p className="font-body text-sm capitalize max-h-14 h-14 overflow-y-auto">
+        <p className="font-body text-sm capitalize max-h-20 h-20 overflow-y-auto w-full">
           {props.description}
         </p>
 
@@ -55,16 +56,8 @@ const Card: React.FC<CardProps> = (props) => {
             title={`${props.user.first_name} ${props.user.last_name}`}
           ></div>
         </div>
-
-        <Link
-          href={`/tm/project/${props.id}`}
-          className="w-full flex flex-col items-center justify-center p-2 rounded-md bg-primary-main 
-                    text-default-white font-bold font-header hover:shadow-md transition-all"
-        >
-          View
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 

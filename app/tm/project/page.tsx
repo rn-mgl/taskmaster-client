@@ -3,24 +3,11 @@
 import Card from "@/components/project/Card";
 import Create from "@/components/project/Create";
 import { useGlobalContext } from "@/context";
+import { ProjectProps } from "@/src/interface/project";
 import { getCSRFToken } from "@/src/utils/token";
 import axios from "axios";
 import React from "react";
 import { IoAdd } from "react-icons/io5";
-
-interface ProjectProps {
-  id: number;
-  banner_image: string;
-  description: string;
-  title: string;
-  status: number;
-  user: UserProps;
-}
-
-interface UserProps {
-  first_name: string;
-  last_name: string;
-}
 
 const Project = () => {
   const [canCreateProject, setCanCreateProject] = React.useState(false);

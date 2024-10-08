@@ -64,7 +64,7 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             href="/tm/project"
             className={`w-full p-4 rounded-md flex flex-row gap-2 items-center justify-center hover:bg-accent-light/30 hover:text-primary-main transition-all
                     ${
-                      path === "/tm/project"
+                      path.includes("/tm/project")
                         ? "font-bold bg-gradient-to-br from-primary-light to-secondary-light text-primary-dark"
                         : "font-normal"
                     }`}
@@ -79,7 +79,7 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             href="/tm/task"
             className={`w-full p-4 rounded-md flex flex-row gap-2 items-center justify-center hover:bg-accent-light/30 hover:text-primary-main transition-all
                     ${
-                      path === "/tm/task"
+                      path.includes("/tm/task")
                         ? "font-bold bg-gradient-to-br from-primary-light to-secondary-light text-primary-dark"
                         : "font-normal"
                     }`}
@@ -94,7 +94,7 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             href="/tm/message"
             className={`w-full p-4 rounded-md flex flex-row gap-2 items-center justify-center hover:bg-accent-light/30 hover:text-primary-main transition-all
                     ${
-                      path === "/tm/message"
+                      path.includes("/tm/message")
                         ? "font-bold bg-gradient-to-br from-primary-light to-secondary-light text-primary-dark"
                         : "font-normal"
                     }`}
@@ -109,7 +109,7 @@ const Nav = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             href="/tm/invite"
             className={`w-full p-4 rounded-md flex flex-row gap-2 items-center justify-center hover:bg-accent-light/30 hover:text-primary-main transition-all
                     ${
-                      path === "/tm/invite"
+                      path.includes("/tm/invite")
                         ? "font-bold bg-gradient-to-br from-primary-light to-secondary-light text-primary-dark"
                         : "font-normal"
                     }`}
