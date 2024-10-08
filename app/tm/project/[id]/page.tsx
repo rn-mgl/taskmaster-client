@@ -11,7 +11,16 @@ import { IoPerson } from "react-icons/io5";
 import { SiTask } from "react-icons/si";
 
 const SingleProject = () => {
-  const [project, setProject] = React.useState<ProjectProps>({});
+  const [project, setProject] = React.useState<ProjectProps>({
+    banner_image: "",
+    code: "",
+    deadline: "",
+    description: "",
+    id: 0,
+    status: 0,
+    title: "",
+    user: { first_name: "", last_name: "" },
+  });
   const params = useParams();
   const { url } = useGlobalContext();
 
